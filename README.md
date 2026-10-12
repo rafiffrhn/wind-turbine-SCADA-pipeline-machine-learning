@@ -1,10 +1,10 @@
 # End-to-End Wind Turbine SCADA Pipeline & Machine Learning
 
-## Deskripsi Proyek
-Proyek ini adalah portofolio *Full-Stack Data* komprehensif yang menggabungkan bidang **Data Engineering** dan **Data Science**. Menggunakan dataset sensor IoT (*SCADA*) dari kincir angin, proyek ini merancang sistem *pipeline* data otomatis dari hulu ke hilir: mulai dari ekstraksi data mentah, pembersihan anomali, penyimpanan ke Data Warehouse, visualisasi Business Intelligence, hingga pengembangan model Machine Learning prediktif.
+## Project Description
+This project is a comprehensive **Full-Stack Data** portfolio integrating **Data Engineering** and **Data Science**. Utilizing wind turbine IoT sensor data (SCADA), this project architects an automated end-to-end data pipeline: from raw data extraction, anomaly cleansing, and Data Warehouse storage, to Business Intelligence visualization and the development of predictive Machine Learning models.
 
 ## Tech Stack & Tools
-- **Bahasa Pemrograman:** Python 3
+- **Programming Language:** Python 3
 - **Data Engineering & ETL:** Prefect (Orchestration), DuckDB (Data Warehouse), PyArrow (Parquet)
 - **Data Science & ML:** Scikit-Learn (Random Forest Regressor & Classifier), Pandas, NumPy
 - **Visualization:** Matplotlib, Seaborn, Power BI Desktop
@@ -12,49 +12,49 @@ Proyek ini adalah portofolio *Full-Stack Data* komprehensif yang menggabungkan b
 
 ## Struktur Repositori
 ```text
-├── data/                    # Penyimpanan data (Processed / Parquet)
-├── images/                  # Aset gambar untuk dokumentasi & dashboard
-├── notebooks/               # Eksperimen & Pemodelan Data Science
-│    ├── prediksi_daya.ipynb         # Model Regresi (Prediksi Active Power)
-│    └── predictive_maintenance.ipynb # Model Klasifikasi (Deteksi Status Mesin)
-├── Perfect.py               # Script orkestrasi ETL Pipeline otomatis
-├── transform.py             # Logika transformasi & handling anomali
-├── load.py                  # Load data ke DuckDB
+├── data/                    # Data storage (Processed / Parquet)
+├── images/                  # Image assets for documentation & dashboards
+├── notebooks/               # Data Science experimentation & modeling
+│    ├── prediksi_daya.ipynb         # Regression Model (Active Power Prediction)
+│    └── predictive_maintenance.ipynb # Classification Model (Machine Status Detection)
+├── Perfect.py               # Automated ETL pipeline orchestration script
+├── transform.py             # Transformation logic & anomaly handling
+├── load.py                  # Data loading script to DuckDB
 └── README.md
 ```
 ## Part 1: Data Engineering (Automated Pipeline)
-Pipeline diorkestrasi menggunakan Prefect dengan tahapan:
-- **Extract & Clean:** Membaca data CSV, membersihkan nilai anomali (daya negatif), dan melakukan time-partitioning.
-- **Feature Engineering:** Membuat kolom turbine_status (Normal vs Maintenance/Error) berdasarkan logika bisnis kecepatan angin dan daya.
-- **Load:** Menyimpan data terstruktur ke format Parquet dan DuckDB secara otomatis.
+The pipeline is orchestrated using Prefect with the following stages:
+- **Extract & Clean:** Ingests CSV data, cleanses anomalous values (e.g., negative power output), and applies time-partitioning.
+- **Feature Engineering:** Generates a turbine_status feature (Normal vs. Maintenance/Error) based on wind speed and active power business logic.
+- **Load:** Automatically loads the structured data into Parquet formats and DuckDB for optimized storage.
 
 ## Part 2: Data Sciennce & Machine Learning
-Di tahap ini, data bersih dieksplorasi lebih dalam menggunakan Jupyter Notebook di dalam folder notebooks/:
-- **Model Regresi (regression_daya.ipynb):** Membangun RandomForestRegressor untuk memprediksi besarnya daya listrik (active_power_kw) berdasarkan kecepatan angin. Model ini sukses mencetak skor akurasi $R^2$ sebesar 96.15%.
-- **Model Klasifikasi (classification_predmaintenance.ipynb):** Membangun RandomForestClassifier untuk mendeteksi status kerusakan mesin (Predictive Maintenance) serta menganalisis mitigasi Data Leakage untuk menguji performa model di dunia nyata.
+In this phase, the cleaned data is explored further using Jupyter Notebooks located in the notebooks/ directory:
+- **Regression Model (regression_daya.ipynb):** Builds a RandomForestRegressor to predict active power output (active_power_kw) based on wind speed. This model achieved an outstanding $R^2$ accuracy score of 96.15%.
+- **Classification Model (classification_predmaintenance.ipynb):** MDevelops a RandomForestClassifier to detect machine anomaly status (Predictive Maintenance) and analyzes Data Leakage mitigation to ensure robust real-world model performance.
 
-## Visualisasi & Dashboard
-- **Power BI:** Digunakan untuk monitoring performa operasional kincir angin secara interaktif.
-- **Matplotlib & Seaborn:** Digunakan untuk evaluasi model Machine Learning (Scatter plot aktual vs prediksi dan analisis Feature Importance).
+## Visualization & Dashboard
+- **Power BI:** Utilized for interactive monitoring of wind turbine operational performance.
+- **Matplotlib & Seaborn:** Employed for Machine Learning model evaluation (e.g., actual vs. predicted scatter plots and Feature Importance analysis).
 
 ## Cara Menjalankan Proyek
-1. **Clone Repositori ini
+**1. Clone this repository:**
 ```bash
 git clone https://github.com/rafiffrhn/end-to-end-data-pipeline-1.git
 cd end-to-end-data-pipeline-1
 ```
-2. Install requirements
+**2. Install requirements**
 ```bash
 pip install -r requirements.txt
 ```
-3. Jalankan pipeline Prefect atau buka Jupyter Notebook di dalam folder notebooks/ untuk melihat eksperimen model AI.
+**3. Start the Prefect server:**
 ```bash
 python -m prefect server start
 ```
-Dashboard Prefect dapat diakses melalui http://127.0.0.1:4200
+The Prefect Dashboard can be accessed via http://127.0.0.1:4200
 
-4. Jalankan Pipeline Automasi (Buka terminal kedua)
+**4. Run the Automated Pipeline (Open a second terminal):**
 ```bash
 python Prefect.py
 ```
-Script ini akan mengeksekusi pipeline (Transform & Load) secara otomatis berdasarkan jadwal yang sudah ditentukan pada code.
+This script will execute the automated ETL pipeline (Transform & Load) based on the scheduled configuration in the code. You can also open the Jupyter Notebooks inside the notebooks/ folder to view the AI model experiments.
